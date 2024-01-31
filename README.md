@@ -6,19 +6,35 @@ This project delivers a robust and user-friendly REST API for managing tasks usi
 
 **Features**
 
-**User Registration and Authentication:** Register new users and securely log in using JWT tokens.
+**User Registration and Authentication:** 
 
-**RESTful API Endpoints:** Adhere to REST principles for intuitive and consistent interactions.
+**POST /api/register:** Register a new user.
 
-**Task Management:** Create, retrieve, update, and delete tasks efficiently.
-
-**Data Validation:** Ensure data integrity with server-side validation for user registration and task creation.
-
-**Database Operations:** Leverage a MySQL database with an ORM for seamless CRUD functionality.
-
-**Authentication and Authorization:** JWT-based authentication safeguards user data and enforces access control.
+**POST /api/login:** User login with JWT authentication.
 
 
+**Task Management:**
+
+**POST /api/tasks:** Create a new task.
+
+**GET /api/tasks:** Retrieve all tasks for the authenticated user.
+
+**PUT /api/tasks/{id}:** Update a task by ID.
+
+**DELETE /api/tasks/{id}:** Delete a task by ID.
+
+
+**REST API:**
+
+Follows REST principles with appropriate HTTP methods.
+
+**Data Validation:**
+
+Implements server-side validation for user registration and task creation.
+
+**Database Operations:**
+
+Uses a MySQL databasewith an ORM for CRUD functionality.
 
 
 **Getting Started**
@@ -44,7 +60,7 @@ Endpoint: POST /api/register
 
 Request Payload:
 ```json
-JSON
+
 {
   "username": "your_username",
   "email": "your_email@example.com",
@@ -53,7 +69,7 @@ JSON
 ```
 Response:
 ```json
-JSON
+
 {
   "message": "User registered successfully."
 }
@@ -64,7 +80,7 @@ JSON
 Endpoint: POST /api/login
 Request Payload:
 ```json
-JSON
+
 {
   "username": "your_username",
   "password": "your_password"
@@ -72,7 +88,7 @@ JSON
 ```
 Response:
 ```json
-JSON
+
 {
     "token": "token",
     "userName": "name",
@@ -83,9 +99,9 @@ JSON
 **Creating a Task**
 
 Endpoint: POST /api/tasks
+
 Request Payload:
 ```json
-JSON
 {
   "title": "task_title",
   "description": "task_description",
@@ -94,7 +110,6 @@ JSON
 ```
 Response:
 ```json
-JSON
 {
   "taskId": "task_id",
   "title": "task_title",
@@ -109,7 +124,7 @@ Endpoint: GET /api/tasks
 
 Response:
 ```json
-JSON
+
 [
   {
     "taskId": "task_id",
@@ -131,7 +146,6 @@ Endpoint: DELETE /api/tasks/{taskId}
 
 Response:
 ```json
-JSON
 {
   "Confirmation Message": "Task deleted successfully."
 }
@@ -143,7 +157,6 @@ Endpoint: PUT /api/tasks
 
 Request Payload:
 ```json
-JSON
 {
   "taskId": "task_id",
   "title": "task_title",
@@ -153,7 +166,6 @@ JSON
 ```
 Response:
 ```json
-JSON
 {
   "taskId": "task_id",
   "title": "task_title",
