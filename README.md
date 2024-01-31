@@ -4,15 +4,22 @@
 
 This project delivers a robust and user-friendly REST API for managing tasks using Spring Boot. It boasts comprehensive features, secure authentication, and a well-structured design, making it an ideal solution for streamlining your task organization.
 
-Features
+**Features**
 
 User Registration and Authentication: Register new users and securely log in using JWT tokens.
+
 RESTful API Endpoints: Adhere to REST principles for intuitive and consistent interactions.
+
 Task Management: Create, retrieve, update, and delete tasks efficiently.
+
 Data Validation: Ensure data integrity with server-side validation for user registration and task creation.
+
 Database Operations: Leverage a MySQL database with an ORM for seamless CRUD functionality.
+
 Unit Testing: Rigorous unit tests guarantee code quality and reliability.
+
 Authentication and Authorization: JWT-based authentication safeguards user data and enforces access control.
+
 Getting Started
 
 Prerequisites:
