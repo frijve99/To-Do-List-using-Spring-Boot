@@ -14,8 +14,9 @@ Request Payload:
   "password": "your_secure_password"
 }
 
-```json
+
 Response:
+```json
 {
   "message": "User registered successfully."
 }
