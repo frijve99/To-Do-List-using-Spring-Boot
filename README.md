@@ -13,7 +13,7 @@ Request Payload:
   "email": "your_email@example.com",
   "password": "your_secure_password"
 }
-```json
+```
 
 Response:
 ```json
