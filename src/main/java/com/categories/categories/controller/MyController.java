@@ -3,6 +3,7 @@ package com.categories.categories.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,32 +32,49 @@ public class MyController {
 	//This is the API for Register.. The Path is "localhost:8080/register"
 	//It will return a verification Message also warning about invalid input.
 	@PostMapping("/register")
-	public String doRegister(@RequestBody Person person) {
-		System.out.println("Register Found");
-		return userService.addUser(person);
+	public ResponseEntity<?> doRegister(@RequestBody Person person) {
+		try {
+	        System.out.println("Register Found");
+	        String result = userService.addUser(person);
+	        return ResponseEntity.ok(result);
+	    } 
+		catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+	    }
 	}
 	
 	//This is the API for Register.. The Path is "localhost:8080/login"
 	//It will return user information as well as a Token which will be used for Authentication later.
 	@PostMapping("/login")
 	public ResponseEntity<?> doLogin(@RequestBody Person person) {
-		return userService.checkUser(person);
+		try {
+	        return userService.checkUser(person);
+	    } 
+		catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+	    }
 	}
 	
 	
-	//This is the API for Creating..
+	//This is the API for Creating Task..
 	//To access this it will need Token as given while login..
 	//It will return created task information.
 	@PostMapping("/tasks")
 	public ResponseEntity<?> getTask(Authentication authentication, @RequestBody Tasks task) {
 		TaskResponse addedTask;
-		if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            addedTask = taskService.addTask(task,username);
-        } else {
-            return ResponseEntity.ok("Error");
-        }
-		return ResponseEntity.ok(addedTask);
+	    try {
+	        if (authentication != null && authentication.isAuthenticated()) {
+	            String username = authentication.getName();
+	            addedTask = taskService.addTask(task, username);
+	            return ResponseEntity.ok(addedTask);
+	        } 
+	        else {
+	        	return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not Authorized");
+	        }
+	    } 
+	    catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+	    }
 	}
 	
 	//This is the API for getting the all tasks for a user..
@@ -64,11 +82,18 @@ public class MyController {
 	//It will return all tasks of a user.
 	@GetMapping("/tasks")
 	public ResponseEntity<?> getTask(Authentication authentication) {
-		if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            return ResponseEntity.ok(taskService.getTask(username));
-        }
-        return ResponseEntity.ok("Error");		
+		try {
+	        if (authentication != null && authentication.isAuthenticated()) {
+	            String username = authentication.getName();
+	            return ResponseEntity.ok(taskService.getTask(username));
+	        } 
+	        else {
+	        	return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not Authorized");
+	        }
+	    } 
+		catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+	    }		
 	}
 	
 	
@@ -77,10 +102,17 @@ public class MyController {
 	//It will return confirmation if the task has been deleted.
 	@DeleteMapping("/tasks/{taskId}")
 	public ResponseEntity<?> delTask(Authentication authentication, @PathVariable int taskId) {
-		if (authentication != null && authentication.isAuthenticated()) {
-            return ResponseEntity.ok(taskService.delTask(taskId));
-        }
-        return ResponseEntity.ok("Error");	
+		try {
+	        if (authentication != null && authentication.isAuthenticated()) {
+	            return ResponseEntity.ok(taskService.delTask(taskId));
+	        } 
+	        else {
+	        	return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not Authorized");
+	        }
+	    } 
+		catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+	    }
 	}
 	
 	//This is the API for Updating a task..
@@ -89,13 +121,19 @@ public class MyController {
 	@PutMapping("/tasks")
 	public ResponseEntity<?> updateTask(Authentication authentication, @RequestBody Tasks task) {
 		TaskResponse addedTask;
-		if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            addedTask = taskService.updateTask(task,username);
-        } else {
-            return ResponseEntity.ok("Error");
-        }
-		return ResponseEntity.ok(addedTask);
+	    try {
+	        if (authentication != null && authentication.isAuthenticated()) {
+	            String username = authentication.getName();
+	            addedTask = taskService.updateTask(task, username);
+	            return ResponseEntity.ok(addedTask);
+	        } 
+	        else {
+	        	return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not Authorized");
+	        }
+	    } 
+	    catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+	    }
 	}
 	
 }
