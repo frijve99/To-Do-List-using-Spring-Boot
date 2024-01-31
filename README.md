@@ -49,7 +49,7 @@ MySQL database
 Installation:
 Clone the repository: 
 ```bash
-git clone https://github.com/your-username/spring-boot-task-management.git
+git clone https://github.com/frijve99/To-Do-List-using-Spring-Boot.git
 ```
 
 **REST API Endpoints**
