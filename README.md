@@ -1,6 +1,6 @@
-###Spring Boot Task Management API
+**Spring Boot Task Management API**
 
-###Overview
+**Overview**
 
 This project delivers a robust and user-friendly REST API for managing tasks using Spring Boot. It boasts comprehensive features, secure authentication, and a well-structured design, making it an ideal solution for streamlining your task organization.
 
