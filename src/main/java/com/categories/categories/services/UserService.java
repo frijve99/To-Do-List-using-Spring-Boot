@@ -29,21 +29,36 @@ public class UserService{
 		
 	}
 	
+	//It will check  authenticate the User.
 	public ResponseEntity<?> checkUser(Person checkedPerson) {
+		
+		//Getting Given UserInfo..
 		Optional<Person> opt = userRepo.findById(checkedPerson.getUserName());
-		Person person = opt.get();
-		System.out.println(person.getUserName());
-		boolean userExist = hashPassword(checkedPerson.getPassword()).equals(person.getPassword());
-		if(userExist) {
-			String Token = generateJwtToken(checkedPerson.getUserName());
-			UserResponse usp = new UserResponse(person.getUserName(),person.getEmail(),Token);
-			return ResponseEntity.ok(usp);
+		if(!opt.isEmpty()) {
+			Person person = opt.get();
+			
+			System.out.println(person.getUserName());
+			
+			//Checking if the Credential matches With the DB.
+			boolean userExist = hashPassword(checkedPerson.getPassword()).equals(person.getPassword());
+			if(userExist) {
+				//A token will be generated for the logged user..
+				String Token = generateJwtToken(checkedPerson.getUserName());
+				
+				//Sending Token info as well as user..
+				UserResponse usp = new UserResponse(person.getUserName(),person.getEmail(),Token);
+				return ResponseEntity.ok(usp);
+			}
+			return ResponseEntity.ok("Invalid Credential");
 		}
+		
 		return ResponseEntity.ok("Invalid Credential");
 	}
 	
+	
+	// It will generate a Token based on userName and secretKey
 	public String generateJwtToken(String username) {
-	    String secretKey = "skjdshebrehgyerber123456890edrertet"; // Replace with your secret key
+	    String secretKey = "skjdshebrehgyerber123456890edrertet";
 	    byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
 
 	    return Jwts.builder()
@@ -51,6 +66,9 @@ public class UserService{
 	            .signWith(Keys.hmacShaKeyFor(keyBytes), SignatureAlgorithm.HS256)
 	            .compact();
 	}
+	
+	
+	//It will Register User and Save into the dataBase..
 	
 	public String addUser(Person person) {
 		boolean userExist = userRepo.existsById(person.getUserName());
@@ -64,29 +82,31 @@ public class UserService{
 		
 		String hashedPassword = hashPassword(person.getPassword());
 
-		// Set the hashed password back to the Person object
 		person.setPassword(hashedPassword);
+		
+		//Saving into the Db
 	    userRepo.save(person);
 		return "User Registered";
 	}
 	
-	
+	// It will convert Password into HashPASs..
 	public String hashPassword(String password) {
 	    try {
 	        MessageDigest md = MessageDigest.getInstance("SHA-256");
 	        byte[] hashedBytes = md.digest(password.getBytes());
 
-	        // Convert the byte array to a Base64 encoded string
+	        
 	        String hashedPassword = Base64.getEncoder().encodeToString(hashedBytes);
 
 	        return hashedPassword;
-	    } catch (NoSuchAlgorithmException e) {
-	        // Handle exception, e.g., log it or throw a custom exception
+	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return null;
 	    }
 	}
 	
+	
+	//It will Check Email Validity
 	public  boolean isValidEmail(String email) {
 		String regexPattern = "^(.+)@(\\S+)$";
         return Pattern.compile(regexPattern)
@@ -94,6 +114,7 @@ public class UserService{
         	      .matches();
     }
 	
+	//It will Check Password Validity
 	public boolean isStrongPass(String pass) {
 		boolean hasUpperLetter=false,hasLowerLetter=false,hasNumber=false;
 		if(pass.length()<8) return false;

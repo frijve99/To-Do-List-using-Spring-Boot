@@ -1,5 +1,7 @@
 package com.categories.categories.returnresponse;
 
+
+//It is a Class for Sending User Information.
 public class UserResponse {
 	private String token;
 	private String userName;

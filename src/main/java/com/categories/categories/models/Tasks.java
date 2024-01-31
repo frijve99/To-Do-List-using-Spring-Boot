@@ -10,10 +10,10 @@ import jakarta.persistence.ManyToOne;
 public class Tasks {
 	@Id
 	@GeneratedValue
-	private int taskId;
+	private int taskId;// It is a Primary Key + It is auto Generated
 	
 	@ManyToOne
-    private Person person;
+    private Person person; // It is a Foreign Key
 	private String tittle;
 	private String description;
 	private String status;

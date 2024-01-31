@@ -3,10 +3,10 @@ package com.categories.categories.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity
+@Entity //Creating a Table Name Person
 public class Person {
 	@Id
-	private String userName;
+	private String userName; // It is a Primary Key
 	private String email;
 	private String password;
 	

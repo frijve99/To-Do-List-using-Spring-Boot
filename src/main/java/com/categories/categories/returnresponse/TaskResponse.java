@@ -1,5 +1,7 @@
 package com.categories.categories.returnresponse;
 
+
+// It is a Class for Sending Task Information.
 public class TaskResponse {
 	private int taskId;
     private String title;

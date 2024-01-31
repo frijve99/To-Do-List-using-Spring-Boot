@@ -18,16 +18,22 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class AuthenticationFilter extends OncePerRequestFilter{
+	//This is a secret Key to both Generate or validate JWT token.
 	private String secretKey = "skjdshebrehgyerber123456890edrertet";
+	
 	@Autowired
 	UserRepo userRepo;
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 //		System.out.println("Filtering Found");
 		try {
+			//Extracting the Token..
 	        String jwtToken = extractJwtToken(request);
 	        String userName="";
+	        
+	        //Getting the userName from the Token using Secret Key..
 	        if (jwtToken != null) {
 	             	userName = Jwts.parserBuilder()
 	                    .setSigningKey(secretKey.getBytes())
@@ -37,16 +43,19 @@ public class AuthenticationFilter extends OncePerRequestFilter{
 	                    .getSubject();
 	        
 			System.out.println(userName);
-	            if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-	                // Load user details from the database using UserDetailsService
+			
+	        if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+	        	
+	        	
+	                // Verifying if the user exist in the database..
 	                boolean userExist = userRepo.existsById(userName);
 	                
 	                if(userExist) {
-	                	 // Create Authentication object
+	                	 // Creating Authentication object
 		            	Authentication authentication = new UsernamePasswordAuthenticationToken(
 		                        userName, null, Collections.emptyList());
 		            	
-		                // Set the Authentication object in the SecurityContext
+		                // Setting the Authentication object in the SecurityContext
 		                SecurityContextHolder.getContext().setAuthentication(authentication);
 		                System.out.println("Authenticated");
 	                }
@@ -57,7 +66,7 @@ public class AuthenticationFilter extends OncePerRequestFilter{
 	            }
 	        }
 	    } catch (Exception e) {
-	        // Handle expired token exception
+	        // Handling expired token exception
 	    	System.out.println(e);
 	        return;
 	    }
@@ -67,12 +76,8 @@ public class AuthenticationFilter extends OncePerRequestFilter{
 	}
 	
 	private String extractJwtToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-
-//        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-//            return bearerToken.substring(7); // Remove "Bearer " prefix
-//        }
-
-        return bearerToken;
+		//Getting the Token..
+        String Token = request.getHeader("Authorization");
+        return Token;
     }
 }

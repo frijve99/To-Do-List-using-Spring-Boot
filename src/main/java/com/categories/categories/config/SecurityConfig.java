@@ -20,6 +20,7 @@ public class SecurityConfig {
 	@Bean
 	@Order(Ordered.HIGHEST_PRECEDENCE)
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		//Making Register and Login API accessible for all..
 		http.csrf(AbstractHttpConfigurer::disable);
 	    http.authorizeHttpRequests(rQ -> {
 	           rQ.requestMatchers("/register","/login").permitAll()
