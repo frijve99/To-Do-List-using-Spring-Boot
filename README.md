@@ -6,86 +6,94 @@ This project delivers a robust and user-friendly REST API for managing tasks usi
 
 **Features**
 
-User Registration and Authentication: Register new users and securely log in using JWT tokens.
+**User Registration and Authentication:** Register new users and securely log in using JWT tokens.
 
-RESTful API Endpoints: Adhere to REST principles for intuitive and consistent interactions.
+**RESTful API Endpoints:** Adhere to REST principles for intuitive and consistent interactions.
 
-Task Management: Create, retrieve, update, and delete tasks efficiently.
+**Task Management:** Create, retrieve, update, and delete tasks efficiently.
 
-Data Validation: Ensure data integrity with server-side validation for user registration and task creation.
+**Data Validation:** Ensure data integrity with server-side validation for user registration and task creation.
 
-Database Operations: Leverage a MySQL database with an ORM for seamless CRUD functionality.
+**Database Operations:** Leverage a MySQL database with an ORM for seamless CRUD functionality.
 
-Unit Testing: Rigorous unit tests guarantee code quality and reliability.
+**Authentication and Authorization:** JWT-based authentication safeguards user data and enforces access control.
 
-Authentication and Authorization: JWT-based authentication safeguards user data and enforces access control.
 
-Getting Started
 
-Prerequisites:
+
+**Getting Started**
+
+**Prerequisites:**
 
 Java JDK (version 21)
 Maven
 MySQL database
+
+
 Installation:
+Clone the repository: 
+```bash
+git clone https://github.com/your-username/spring-boot-task-management.git
+```
 
-Clone the repository: git clone https://github.com/your-username/spring-boot-task-management.git
-Update application.properties with your database configuration.
-REST API Endpoints
+**REST API Endpoints**
 
-User Registration
+**User Registration**
 
 Endpoint: POST /api/register
-Request Payload:
 
+Request Payload:
+```json
 JSON
 {
   "username": "your_username",
   "email": "your_email@example.com",
   "password": "your_secure_password"
 }
-Use code with caution. Learn more
+```
 Response:
-
+```json
 JSON
 {
   "message": "User registered successfully."
 }
-Use code with caution. Learn more
-User Login
+```
+
+**User Login**
 
 Endpoint: POST /api/login
 Request Payload:
-
+```json
 JSON
 {
   "username": "your_username",
   "password": "your_password"
 }
-Use code with caution. Learn more
+```
 Response:
-
+```json
 JSON
 {
     "token": "token",
     "userName": "name",
     "email": "userEmail"
 }
-Use code with caution. Learn more
-Creating a Task
+```
+
+**Creating a Task**
 
 Endpoint: POST /api/tasks
 Request Payload:
-
+```json
 JSON
 {
   "title": "task_title",
   "description": "task_description",
   "status": "task_status"
 }
-Use code with caution. Learn more
+```
 Response:
-
+```json
 JSON
 {
   "taskId": "task_id",
@@ -93,13 +101,14 @@ JSON
   "description": "task_description",
   "status": "task_status"
 }
-Use code with caution. Learn more
-Getting Tasks
+```
+
+**Getting Tasks**
 
 Endpoint: GET /api/tasks
 
 Response:
-
+```json
 JSON
 [
   {
@@ -115,23 +124,25 @@ JSON
     "status": "task_status"
   }
 ]
-Use code with caution. Learn more
-Deleting a Task
+```
+**Deleting a Task**
 
 Endpoint: DELETE /api/tasks/{taskId}
 
 Response:
-
+```json
 JSON
 {
   "Confirmation Message": "Task deleted successfully."
 }
-Use code with caution. Learn more
-Updating a Task
+```
+
+**Updating a Task**
 
 Endpoint: PUT /api/tasks
+
 Request Payload:
-
+```json
 JSON
 {
   "taskId": "task_id",
@@ -139,9 +150,9 @@ JSON
   "description": "task_description",
   "status": "task_status"
 }
-Use code with caution. Learn more
+```
 Response:
-
+```json
 JSON
 {
   "taskId": "task_id",
@@ -149,3 +160,4 @@ JSON
   "description": "task_description",
   "status": "task_status"
 }
+```
