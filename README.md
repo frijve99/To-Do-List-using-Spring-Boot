@@ -2,11 +2,11 @@
 
 ## Features
 
-###User Registration and Authentication
+### User Registration and Authentication
 **POST /api/register:** Register a new user.
 **POST /api/login:** User login with JWT authentication.
 
-###Task Management:**
+### Task Management
 **POST /api/tasks:** Create a new task.
 **GET /api/tasks:** Retrieve all tasks for the authenticated user.
 **PUT /api/tasks/{id}:** Update a task by ID.
